@@ -3,12 +3,18 @@
 
 ## Table of Contents
 
+- [Clone Project](#clone-project)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
   - [1. Backend Setup (Flask)](#1-backend-setup-flask)
   - [2. Frontend Setup (React)](#2-frontend-setup-react)
 - [Running Both Servers](#running-both-servers)
 - [Testing](#testing)
+
+## Clone project
+```
+https://github.com/Kelocker/UM-HACKATHON-2025-BENINGING.git
+```
 
 ## Project Structure
 After setting up:
