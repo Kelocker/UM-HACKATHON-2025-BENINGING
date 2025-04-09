@@ -14,7 +14,7 @@
 After setting up:
 ```
 UM-HACKATHON-2025-BENINGING/
-├── Server/         # Flask backend
+├── server/         # Flask backend
 │   ├── app.py
 │   ├── venv
 │   └── requirements.txt
@@ -29,7 +29,7 @@ UM-HACKATHON-2025-BENINGING/
 ## Setup Instructions
 ### 1. Backend Setup (Flask)
 ```
-cd Server
+cd server
 ```
 
 Create a virtual environment:
