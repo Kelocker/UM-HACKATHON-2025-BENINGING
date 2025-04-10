@@ -1,5 +1,5 @@
 import React from "react";
-import placeholderImage from "../assets/random.png";
+import errorImg from "../assets/error.png";
 import { useNavigate } from "react-router-dom";
 
 const ErrorPage = () => {
@@ -20,24 +20,15 @@ const ErrorPage = () => {
       }}
     >
       <img
-        src={placeholderImage}
+        src={errorImg}
         alt="Error"
         style={{ maxWidth: "80%", maxHeight: "60%" }}
       />
       <button
         onClick={handleGoHome}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "16px",
-          color: "white",
-          backgroundColor: "red",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
+        className="mt-3 px-5 py-2 text-base text-white bg-black rounded-md hover:opacity-90"
       >
-        Go to Home Page
+        Back to Home Page
       </button>
     </div>
   );

@@ -1,7 +1,8 @@
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft, IconRobot } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import IconButton from "../components/IconButton.tsx";
+import Marquee from "react-fast-marquee";
 
 const AiBotPage = () => {
   const [messages, setMessages] = useState([
@@ -13,7 +14,7 @@ const AiBotPage = () => {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const location = useLocation();
-  const state = location.state;
+  const state = location.state ?? {};
   console.log("location state now", state);
 
   // Sample recommendations
@@ -78,12 +79,19 @@ const AiBotPage = () => {
           <IconButton onClick={() => navigate(-1)} Icon={IconArrowLeft} />
           <span className="font-bold text-sm">Chat</span>
         </div>
-        {/* <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-black rounded-sm" />
-          <div className="w-4 h-4 bg-black rounded-sm" />
-        </div> */}
+        {state.title ? (
+          <div className="flex items-center gap-2">
+            <IconButton onClick={() => navigate("/aibot")} Icon={IconRobot} />
+          </div>
+        ) : null}
       </div>
-
+      {state.title ? (
+        <Marquee gradient={false} speed={80} className="bg-lime-400 py-2">
+          <div className="text-black font-bold text-sm tracking-wide">
+            · {state.title}
+          </div>
+        </Marquee>
+      ) : null}
       {/* Chat Messages */}
       <div className="flex-grow p-4 overflow-auto flex flex-col gap-3">
         {messages.map((msg, index) => (
