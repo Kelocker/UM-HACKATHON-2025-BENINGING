@@ -1,6 +1,6 @@
 import { IconArrowLeft } from "@tabler/icons-react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import IconButton from "../components/IconButton.tsx";
 
 const AiBotPage = () => {
@@ -12,6 +12,9 @@ const AiBotPage = () => {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const location = useLocation();
+  const state = location.state;
+  console.log("location state now", state);
 
   // Sample recommendations
   const recommendations = [
