@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #ffffff; /* White */
+    --color-secondary: #1a1a1a; /* Black */
+    --font-family-sans: 'Arial', sans-serif;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+  }
+
+  body {
+    font-family: var(--font-family-sans);
+    color: var(--color-secondary);
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: bold;
+  }
+
+  p, li, a, span {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.typing .dot {
+  animation: blink 1s infinite;
+}
+.typing .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
