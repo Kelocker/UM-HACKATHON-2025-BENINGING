@@ -16,7 +16,11 @@ import {
   Label,
   Cell,
 } from "recharts";
-import { IconRobot } from "@tabler/icons-react";
+import {
+  IconLabelImportantFilled,
+  IconRobot,
+  IconFiretruck,
+} from "@tabler/icons-react";
 
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
 // import ImageSwiper from "../components/ImageSwiper.tsx";
@@ -25,30 +29,34 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const seenList = [
-    { src: placeholderImage, alt: "Placeholder 1", code: "S001" },
-    { src: placeholderImage, alt: "Placeholder 2", code: "S002" },
-    { src: placeholderImage, alt: "Placeholder 3", code: "S003" },
+    {
+      src: placeholderImage,
+      title: "Placeholder Placeholder Placeholder 1",
+      code: "S001",
+    },
+    { src: placeholderImage, title: "Placeholder 2", code: "S002" },
+    { src: placeholderImage, title: "Placeholder 3", code: "S003" },
   ];
   const unSeenList = [
-    { src: placeholderImage, alt: "Placeholder 1", code: "U001" },
-    { src: placeholderImage, alt: "Placeholder 2", code: "U002" },
-    { src: placeholderImage, alt: "Placeholder 3", code: "U003" },
+    { src: placeholderImage, title: "Placeholder 1", code: "U001" },
+    { src: placeholderImage, title: "Placeholder 2", code: "U002" },
+    { src: placeholderImage, title: "Placeholder 3", code: "U003" },
   ];
 
   const importantList = [
-    { src: placeholderImage, alt: "Placeholder 1", code: "I001" },
-    { src: placeholderImage, alt: "Placeholder 2", code: "I002" },
-    { src: placeholderImage, alt: "Placeholder 3", code: "I003" },
+    { src: placeholderImage, title: "Placeholder 1", code: "I001" },
+    { src: placeholderImage, title: "Placeholder 2", code: "I002" },
+    { src: placeholderImage, title: "Placeholder 3", code: "I003" },
   ];
 
   const data = [
-    { name: "Mon", sales: 4000, code: "MON" },
-    { name: "Tue", sales: -3000, code: "TUE" },
-    { name: "Wed", sales: -2000, code: "WED" },
-    { name: "Thu", sales: -7800, code: "THU" },
-    { name: "Fri", sales: 5000, code: "FRI" },
-    { name: "Sat", sales: -500, code: "SAT" },
-    { name: "Sun", sales: 2000, code: "SUN" },
+    { name: "Mon", sales: 4000, code: "MON", title: "Monday Sales Record" },
+    { name: "Tue", sales: -3000, code: "TUE", title: "Tuesday Sales Record" },
+    { name: "Wed", sales: -2000, code: "WED", title: "Wednesday Sales Record" },
+    { name: "Thu", sales: -7800, code: "THU", title: "Thusday Sales Record" },
+    { name: "Fri", sales: 5000, code: "FRI", title: "Friday Sales Record" },
+    { name: "Sat", sales: -500, code: "SAT", title: "Saturday Sales Record" },
+    { name: "Sun", sales: 2000, code: "SUN", title: "Sunday Sales Record" },
   ];
 
   const colors = [
@@ -112,7 +120,7 @@ const HomePage = () => {
                     className="cursor-pointer"
                     onClick={() =>
                       navigate("/aibot", {
-                        state: { code: entry.code },
+                        state: { code: entry.code, title: entry.title },
                       })
                     }
                   />
@@ -124,11 +132,26 @@ const HomePage = () => {
       </div>
       {/* <ImageSwiper images={importantList} title="Important" /> */}
 
-      <ImagesBlog images={importantList} title="Important" />
+      <ImagesBlog
+        images={importantList}
+        title="Important"
+        Icon={IconFiretruck}
+        iconColor="text-red-600"
+      />
 
-      <ImagesBlog images={unSeenList} title="Unseen" />
+      <ImagesBlog
+        images={unSeenList}
+        title="Unseen"
+        Icon={IconLabelImportantFilled}
+        iconColor="text-yellow-300"
+      />
 
-      <ImagesBlog images={seenList} title="Seen" />
+      <ImagesBlog
+        images={seenList}
+        title="Seen"
+        Icon={IconLabelImportantFilled}
+        iconColor="text-gray-200"
+      />
     </div>
   );
 };
