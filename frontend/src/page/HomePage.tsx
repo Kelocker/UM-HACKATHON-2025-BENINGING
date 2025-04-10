@@ -94,7 +94,7 @@ const HomePage = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name">
                 <Label
-                  value="Days of the Week"
+                  value="Moments in Time"
                   offset={-5}
                   position="insideBottom"
                 />
@@ -126,7 +126,7 @@ const HomePage = () => {
 
       <ImagesBlog images={importantList} title="Important" />
 
-      <ImagesBlog images={unSeenList} title="UnSeen" />
+      <ImagesBlog images={unSeenList} title="Unseen" />
 
       <ImagesBlog images={seenList} title="Seen" />
     </div>
