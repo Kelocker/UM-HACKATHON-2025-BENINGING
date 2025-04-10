@@ -11,6 +11,7 @@ import {
 import IconButton from "../components/IconButton.tsx";
 import { useNavigate } from "react-router-dom";
 import ImageSwiper from "../components/ImageSwiper.tsx";
+import ImagesBlog from "../components/ImagesBlog.tsx";
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
 
 const HomePage = () => {
@@ -79,38 +80,13 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* <div className="p-4">
-        <div className="text-start font-semibold mb-2">Important</div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-gray-100 h-32 rounded-lg">
-            <img
-              src={placeholderImage}
-              className="h-full w-full object-cover rounded-lg"
-              alt="Placeholder"
-            />
-          </div>
-          <div className="bg-gray-100 h-32 rounded-lg">
-            <img
-              src={placeholderImage}
-              className="h-full w-full object-cover rounded-lg"
-              alt="Placeholder"
-            />
-          </div>
-          <div className="bg-gray-100 h-32 rounded-lg">
-            <img
-              src={placeholderImage}
-              className="h-full w-full object-cover rounded-lg"
-              alt="Placeholder"
-            />
-          </div>
-        </div>
-      </div> */}
+      {/* <ImageSwiper images={importantList} title="Important" /> */}
 
-      <ImageSwiper images={importantList} title="Important" />
+      <ImagesBlog images={importantList} title="Important" />
 
-      <ImageSwiper images={unSeenList} title="UnSeen" />
+      <ImagesBlog images={unSeenList} title="UnSeen" />
 
-      <ImageSwiper images={seenList} title="Seen" />
+      <ImagesBlog images={seenList} title="Seen" />
     </div>
   );
 };
