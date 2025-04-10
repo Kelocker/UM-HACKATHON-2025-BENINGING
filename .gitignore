@@ -1,1 +1,3 @@
 venv
+.env
+server/chatbot/__pycache__
