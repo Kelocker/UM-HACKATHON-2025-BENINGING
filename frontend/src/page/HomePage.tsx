@@ -1,18 +1,25 @@
 import React from "react";
 import placeholderImage from "../assets/random.png";
-import {
-  IconBed,
-  IconFile3d,
-  IconHome,
-  IconRobot,
-  IconSpeedboat,
-  IconUser,
-} from "@tabler/icons-react";
 import IconButton from "../components/IconButton.tsx";
 import { useNavigate } from "react-router-dom";
-import ImageSwiper from "../components/ImageSwiper.tsx";
 import ImagesBlog from "../components/ImagesBlog.tsx";
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Label,
+  Cell,
+} from "recharts";
+import { IconRobot } from "@tabler/icons-react";
+
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
+// import ImageSwiper from "../components/ImageSwiper.tsx";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -33,6 +40,26 @@ const HomePage = () => {
     { src: placeholderImage, alt: "Placeholder 2", code: "I002" },
     { src: placeholderImage, alt: "Placeholder 3", code: "I003" },
   ];
+
+  const data = [
+    { name: "Mon", sales: 4000, code: "MON" },
+    { name: "Tue", sales: -3000, code: "TUE" },
+    { name: "Wed", sales: -2000, code: "WED" },
+    { name: "Thu", sales: -7800, code: "THU" },
+    { name: "Fri", sales: 5000, code: "FRI" },
+    { name: "Sat", sales: -500, code: "SAT" },
+    { name: "Sun", sales: 2000, code: "SUN" },
+  ];
+
+  const colors = [
+    "#E40303",
+    "#FF8C00",
+    "#FFED00",
+    "#008026",
+    "#004DFF",
+    "#750787",
+    "#87CEEB",
+  ]; // Pride colors + sky blue
 
   return (
     <div className="bg-white min-h-screen">
@@ -56,30 +83,45 @@ const HomePage = () => {
         <LocalNotificationButton />
         
       </div> */}
+      <div className="w-[100%] flex justify-center">
+        <div className="p-4 w-[100%] max-w-3xl">
+          <div className="text-center font-semibold mb-2">
+            Sales Record from the Last 7 Days
+          </div>
 
-      <div className="p-4 grid grid-cols-2 gap-4">
-        <div className="flex flex-col items-center">
-          <IconHome className="text-2xl" />
-          <span>Houses</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <IconBed className="text-2xl" />
-          <span>Rooms</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <IconFile3d className="text-2xl" />
-          <span>Saved</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <IconSpeedboat className="text-2xl" />
-          <span>Instant</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <IconUser className="text-2xl" />
-          <span>Profile</span>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name">
+                <Label
+                  value="Days of the Week"
+                  offset={-5}
+                  position="insideBottom"
+                />
+              </XAxis>
+              <YAxis
+                label={{ value: "Sales", angle: -90, position: "insideLeft" }}
+              />
+              <Tooltip />
+              {/* <Legend verticalAlign="top" height={36} /> */}
+              <Bar dataKey="sales">
+                {data.map((entry, index) => (
+                  <Cell
+                    key={index}
+                    fill={colors[index % colors.length]}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate("/aibot", {
+                        state: { code: entry.code },
+                      })
+                    }
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
-
       {/* <ImageSwiper images={importantList} title="Important" /> */}
 
       <ImagesBlog images={importantList} title="Important" />
