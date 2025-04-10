@@ -35,27 +35,35 @@ const AiBotPage = () => {
     await processMessageToChatGPT(userMessage.message);
   };
 
+  const abc = process.env.REACT_APP_OPENAI_API_KEY;
+  console.log("API Key:", abc);
   const processMessageToChatGPT = async (text: string) => {
     const requestBody = {
       model: "gpt-3.5-turbo",
-      prompt: text,
-      max_tokens: 150,
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: text },
+      ],
+      temperature: 0.7,
     };
 
     try {
-      const response = await fetch("https://api.openai.com/v1/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const data = await response.json();
       if (data.choices && data.choices.length > 0) {
         const botMessage = {
-          message: data.choices[0].text,
+          message: data.choices[0].message.content,
           direction: "incoming",
         };
         setMessages((prev) => [...prev, botMessage]);
@@ -63,6 +71,7 @@ const AiBotPage = () => {
     } catch (error) {
       console.error("Error processing message:", error);
     }
+
     setIsTyping(false);
   };
 
