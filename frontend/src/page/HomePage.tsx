@@ -1,9 +1,20 @@
 import React from "react";
-import placeholderImage from "../assets/random.png";
+// import placeholderImage from "../assets/random.png";
 import IconButton from "../components/IconButton.tsx";
 import { useNavigate } from "react-router-dom";
 import ImagesBlog from "../components/ImagesBlog.tsx";
 
+import S001 from "../assets/S001.jpg";
+import S002 from "../assets/S002.jpg";
+import S003 from "../assets/S003.png";
+
+import U001 from "../assets/U001.jpg";
+import U002 from "../assets/U002.jpg";
+import U003 from "../assets/U003.jpg";
+
+import I001 from "../assets/I001.jpg";
+import I002 from "../assets/I002.jpg";
+import I003 from "../assets/I003.jpg";
 import {
   BarChart,
   Bar,
@@ -21,6 +32,10 @@ import {
   IconRobot,
   IconFiretruck,
   IconUpload,
+  IconMoneybag,
+  IconShoppingBag,
+  IconBuildingStore,
+  IconCalendarBolt,
 } from "@tabler/icons-react";
 
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
@@ -29,25 +44,67 @@ import {
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const seenList = [
+  const nowList = [
     {
-      src: placeholderImage,
-      title: "Placeholder Placeholder Placeholder 1",
+      src: S001,
+      title: "Concert Crowd Incoming?",
       code: "S001",
+      desc: "Big concert nearby next Friday, potential late-night delivery surge.",
     },
-    { src: placeholderImage, title: "Placeholder 2", code: "S002" },
-    { src: placeholderImage, title: "Placeholder 3", code: "S003" },
-  ];
-  const unSeenList = [
-    { src: placeholderImage, title: "Placeholder 1", code: "U001" },
-    { src: placeholderImage, title: "Placeholder 2", code: "U002" },
-    { src: placeholderImage, title: "Placeholder 3", code: "U003" },
+    {
+      src: S002,
+      title: "Salad ayam Trend Growing",
+      code: "S002",
+      desc: "'salad ayam' / ‘salad ayam caeser’ keyword searches up 50% recently",
+    },
+    {
+      src: S003,
+      title: "AOV Winning vs Peers!",
+      code: "S003",
+      desc: "Your Average Order Value (AOV) is 10% higher than similar fast-food averages in this city.",
+    },
   ];
 
-  const importantList = [
-    { src: placeholderImage, title: "Placeholder 1", code: "I001" },
-    { src: placeholderImage, title: "Placeholder 2", code: "I002" },
-    { src: placeholderImage, title: "Placeholder 3", code: "I003" },
+  const shopList = [
+    {
+      src: U001,
+      title: "Burger Sales Dropped!",
+      code: "U001",
+      desc: "'Signature Burger' sales decreased by 20% last week",
+    },
+    {
+      src: U002,
+      title: "Monthly Sales Trending Up!",
+      code: "U002",
+      desc: "Great start! Your total sales revenue for April so far is tracking 10% higher compared to the same period in March.",
+    },
+    {
+      src: U003,
+      title: "Lunch Rush Slowdown?",
+      code: "U003",
+      desc: "During lunch peak last week (12:30 PM - 1:30 PM), average order prep time hit 15 mins, with driver wait times over 7 mins.",
+    },
+  ];
+
+  const tipsList = [
+    {
+      src: I001,
+      title: "Combo Idea: Burger & Fries",
+      code: "I001",
+      desc: "Suggest bundling 'Fries' + 'Signature Burger' as customers often buy them together",
+    },
+    {
+      src: I002,
+      title: "Afternoon Snack Deal?",
+      code: "I002",
+      desc: "Offer a small combo (Fries + Drink or Wrap) at special price from 3 PM - 5 PM to boost sales during slow hours.",
+    },
+    {
+      src: I003,
+      title: "Push Drink Add-ons!",
+      code: "I003",
+      desc: "Many skip drinks. Try 'Add a Large Drink for just RM2 more' to increase basket size.",
+    },
   ];
 
   const data = [
@@ -132,27 +189,25 @@ const HomePage = () => {
           </ResponsiveContainer>
         </div>
       </div>
-      {/* <ImageSwiper images={importantList} title="Important" /> */}
+      {/* <ImageSwiper images={tipsList} title="Important" /> */}
 
       <ImagesBlog
-        images={importantList}
-        title="Important"
-        Icon={IconFiretruck}
-        iconColor="text-red-600"
+        images={nowList}
+        title="What's Happening Nearby?"
+        Icon={IconCalendarBolt}
+        iconColor="text-violet-800"
       />
-
       <ImagesBlog
-        images={unSeenList}
-        title="Unseen"
-        Icon={IconLabelImportantFilled}
-        iconColor="text-yellow-300"
+        images={shopList}
+        title="How Your Shop Is Doing?"
+        Icon={IconBuildingStore}
+        iconColor="text-sky-500"
       />
-
       <ImagesBlog
-        images={seenList}
-        title="Seen"
-        Icon={IconLabelImportantFilled}
-        iconColor="text-gray-200"
+        images={tipsList}
+        title="Tips For Your Business?"
+        Icon={IconMoneybag}
+        iconColor="text-yellow-400"
       />
     </div>
   );
