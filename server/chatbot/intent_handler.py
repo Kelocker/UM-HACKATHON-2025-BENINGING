@@ -5,6 +5,7 @@ from pathlib import Path
 from .session_memory import init_session, update_session, get_session_history
 from .prompt_utils import build_data_description
 from .reasoning import save_reasoning_log
+from .prompt_utils import build_data_description, build_input_prompt
 
 # Load .env and OpenAI client
 load_dotenv()
@@ -27,31 +28,13 @@ def get_intent_output(user_input: str, current_merchant_id: str) -> dict:
     if not get_session_history():
         init_session(current_merchant_id)
 
-    # System instruction message
-    system_prompt = f"""
-    You are an intent recognition engine.
 
-    The user may ask follow-up questions. Always refer to previous context and refine the pandas query if needed,
-    or clearly explain why you're confident about the previous query.
 
-    The current user is merchant_id = '{current_merchant_id}'.
+    # Build structured prompt from utils
+    data_description = build_data_description(csv_headers)
+    system_prompt = build_input_prompt(current_merchant_id, data_description,mode="2")
 
-    ONLY return a valid JSON list with exactly this format:
-
-    [
-    [],
-    {{
-    "context": "<summary of what the user wants>",
-    "panda query": "<a valid pandas query string that filters by merchant_id '{current_merchant_id}'>",
-    "reasoning": "<why you selected the tables, joins, fields, and logic>"
-    }}
-    ]
-
-    ⚠️ Do NOT return any explanations, markdown, python code blocks, or comments. No extra lines. No prose.
-
-    Just return the JSON list. Your response must be machine-readable and parsable with json.loads().
-    """
-
+    #%%
     # Update session — block if memory is full
     if not update_session("system", system_prompt) or not update_session("user", user_input):
         return {
