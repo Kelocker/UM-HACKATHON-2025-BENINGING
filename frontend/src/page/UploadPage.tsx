@@ -72,7 +72,7 @@ const UploadPage: React.FC = () => {
             <p className="mb-2">Drop your files here!</p>
             <p className="text-xs text-gray-500">or click</p>
             <button
-              onClick={handleBrowseFiles}
+              // onClick={handleBrowseFiles}
               className="mt-2 px-4 py-2 bg-black text-white text-sm rounded flex items-center gap-1"
             >
               <IconUpload size={16} />
