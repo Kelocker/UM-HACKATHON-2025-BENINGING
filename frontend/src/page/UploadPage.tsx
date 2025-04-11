@@ -40,15 +40,16 @@ const UploadPage: React.FC = () => {
     setShowDialog(true);
     setDialogStage("loading");
 
-    // Simulate 8-second loading
+    // Simulate 3-second loading
     setTimeout(() => {
       setDialogStage("done");
-    }, 8000);
+    }, 3000);
   };
 
   const handleProceedToChat = () => {
-    // Use the first file’s name or fallback
-    const filename = selectedFiles[0]?.name || "UploadedFile";
+    const title = selectedFiles[0]?.name || "UploadedFile";
+    const filename = `Uploaded Data (${title})`;
+
     navigate("/aibot", {
       state: { code: "upload", title: filename },
     });
@@ -79,7 +80,6 @@ const UploadPage: React.FC = () => {
             </button>
             <input
               type="file"
-              multiple
               ref={fileInputRef}
               className="hidden"
               onChange={handleFileChange}
@@ -94,11 +94,9 @@ const UploadPage: React.FC = () => {
             ))}
           </ul>
 
-          {/* Tabs: We'll skip them for brevity; just put "Options" section here */}
           <div className="mt-4">
             <div className="font-semibold mb-2">OPTIONS</div>
 
-            {/* Data source */}
             <label className="flex items-center gap-2 mb-2">
               <IconDatabase size={18} />
               <span>Where did this data come from?</span>
@@ -122,7 +120,6 @@ const UploadPage: React.FC = () => {
               <option>Other</option>
             </select>
 
-            {/* Information type */}
             <label className="flex items-center gap-2 mb-2">
               <IconInfoCircle size={18} />
               <span>What kind of information is this?</span>
@@ -145,7 +142,6 @@ const UploadPage: React.FC = () => {
               <option>Other</option>
             </select>
 
-            {/* Time period */}
             <label className="flex items-center gap-2 mb-2">
               <IconCalendar size={18} />
               <span>What time period does this data cover?</span>
@@ -158,7 +154,6 @@ const UploadPage: React.FC = () => {
               className="w-full border rounded p-2 text-sm mb-4"
             />
 
-            {/* Additional notes */}
             <label className="flex items-center gap-2 mb-2">
               <IconNote size={18} />
               <span>Additional notes</span>
@@ -191,9 +186,10 @@ const UploadPage: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white text-black p-6 rounded w-72 text-center relative">
             {dialogStage === "loading" && (
-              <>
-                <div className="mb-3">Analyzing the data...</div>
-              </>
+              <div className="flex flex-col my-3 items-center w-full">
+                <div className="loader"></div>
+                <div className="pt-8 font-bold">Analyzing the data ...</div>
+              </div>
             )}
             {dialogStage === "done" && (
               <>
