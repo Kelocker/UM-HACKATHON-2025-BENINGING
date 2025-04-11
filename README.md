@@ -68,6 +68,12 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+
+Start backend
+```
+python app.py
+```
+
 ### 2. Frontend Setup (React)
 Open a split terminal or a new terminal tab/window, then:
 ```

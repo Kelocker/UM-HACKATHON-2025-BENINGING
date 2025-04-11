@@ -1,1 +1,6 @@
 venv
+.env
+server/chatbot/__pycache__
+server/reasoning_logs
+data
+__pycache__
