@@ -20,6 +20,7 @@ import {
   IconLabelImportantFilled,
   IconRobot,
   IconFiretruck,
+  IconUpload,
 } from "@tabler/icons-react";
 
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
@@ -77,6 +78,7 @@ const HomePage = () => {
         </div>
         <div className="flex items-center gap-2">
           <IconButton onClick={() => navigate("/aibot")} Icon={IconRobot} />
+          <IconButton onClick={() => navigate("/upload")} Icon={IconUpload} />
         </div>
       </div>
 
