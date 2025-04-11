@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import IntentBox from "./components/IntentBox";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -6,12 +7,14 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:5000/api")
       .then(res => res.json())
-      .then(data => setMessage(data.message));
+      .then(data => setMessage(data.message))
+      .catch((err) => console.error("API not reachable:", err));
   }, []);
 
   return (
-    <div>
-      <h1>{message}</h1>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>{message || "Connecting to Flask..."}</h1>
+      <IntentBox />
     </div>
   );
 }
