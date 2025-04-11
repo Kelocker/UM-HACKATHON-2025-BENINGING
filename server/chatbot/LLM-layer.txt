@@ -1,0 +1,116 @@
+from dotenv import load_dotenv
+import os
+import json
+from openai import OpenAI
+from pathlib import Path
+import csv
+
+
+# Fetch the header
+folder_path = Path('../data')
+csv_headers = {}
+
+
+csv_files = list(folder_path.glob('*.csv'))
+print("Found CSV files:", [file.name for file in csv_files])
+
+for csv_file in csv_files:
+    table_name = csv_file.stem
+    with open(csv_file, newline='', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+        if header:
+            cleaned_header = [col if col.strip() else f"{table_name}_id" for col in header]
+            csv_headers[table_name] = cleaned_header
+            print(f"Cleaned header for '{table_name}': {cleaned_header}")
+        else:
+            print(f"No header found in {csv_file.name}")
+
+
+# data = json.dumps(csv_headers, indent=2)
+
+
+
+
+# Load variables from .env file into the environment
+load_dotenv()
+
+
+Api_key = os.getenv("API_KEY")
+client = OpenAI(api_key=Api_key)
+
+
+
+
+
+
+
+# get current merchant
+with open('../userdata/user.json', 'r') as f:
+    user_info = json.load(f)
+
+current_merchant_id = user_info.get("merchant_id")
+# print(current_merchant_id)
+
+
+
+
+
+
+
+
+
+
+# Build a clean, readable data schema string for GPT
+data_description = "\n".join(
+    [f"{i+1}. `{table}`:\n- " + "\n- ".join(headers)
+     for i, (table, headers) in enumerate(csv_headers.items())]
+)
+
+
+
+
+
+
+
+input_prompt = f"""
+You are an intent recognition engine.
+
+The current user is associated with: merchant_id = '{current_merchant_id}'  
+Your goal is to understand the user’s request and generate a pandas query that only includes data related to this merchant.
+
+Your output must be a structured list in the following format:
+[
+ [],
+ {{"context": "<summary of what the user wants>", "panda query": "<pandas query>"}},
+ ...
+]
+
+You may use only the following data schema:
+
+---
+
+Available Data Sources:
+{data_description}
+
+---
+
+Notes:
+- The data tables are related by shared ID fields (like `merchant_id`, `item_id`, and `order_id`)
+- Feel free to join tables when needed to answer the user’s intent
+- Use field names and table structures to infer how they relate
+
+---
+
+Example User Input:  
+"Show me the top 5 items by sales on 8 April"
+
+Expected Output:
+[
+ [],
+ {{
+   "context": "Top 5 best-selling items on 8 April",
+   "panda query": "df_transaction_data[df_transaction_data['order_time'].str.startswith('2025-04-08') & (df_transaction_data['merchant_id'] == '{current_merchant_id}')].merge(df_transaction_item, on='order_id').merge(df_items, on='item_id').groupby('item_name').size().sort_values(ascending=False).head(5)"
+ }}
+]
+"""
