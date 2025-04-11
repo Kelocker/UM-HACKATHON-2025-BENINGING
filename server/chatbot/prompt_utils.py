@@ -4,9 +4,10 @@ def build_data_description(csv_headers: dict) -> str:
          for i, (table, headers) in enumerate(csv_headers.items())]
     )
 
-def build_input_prompt(current_merchant_id: str, data_description: str) -> str:
-    return f"""
-You are an AI assistant specialized in translating natural language user requests into *one or more Pandas query strings* for data analysis, operating within a specific execution context. Your primary goal is to achieve accurate data retrieval based on the user's intent, handling ambiguity and conversation context appropriately.
+def build_input_prompt(current_merchant_id: str, data_description: str, **kwargs) -> str:
+    if kwargs.get("mode") == "2":
+        return f"""
+You are an AI assistant specialized in translating natural language user requests into *one or more query strings* (Pandas and Metropolib) for data analysis, operating within a specific execution context. Your primary goal is to achieve accurate data retrieval based on the user's intent, handling ambiguity and conversation context appropriately.
 
 ---
 
@@ -22,18 +23,42 @@ You are an AI assistant specialized in translating natural language user request
 
 ---
 
+🔁 Dual Query Mode:
+Generate both:
+1. `pandas_query` — a valid Pandas query string using only the listed DataFrames
+2. `metropolib_query` — the equivalent logical query expressed in Metropolib syntax, if possible
+
+If a Metropolib equivalent is not feasible, return `null` for `metropolib_query`.
+
+---
+
 🧾 Output Format:
-Return ONLY the following strict JSON structure — nothing outside of this format.
+Return ONLY the following strict JSON structure — nothing outside of it.
 
 [
  [],
- {
-   "context": "User wants to know their total sales.",
-   "panda query": "df_transaction_data[df_transaction_data['merchant_id'] == '3e2b6'].merge(df_transaction_item, on='order_id').merge(df_items, on='item_id').assign(total=lambda x: x['price'] * x['quantity'])['total'].sum()",
-   "reasoning": "To calculate total sales, we join df_transaction_data (which holds orders) with df_transaction_item (which holds items per order) and df_items (which holds item prices). We then compute total revenue using price × quantity and sum it across all transactions for merchant_id '3e2b6'.",
-   "required_dataframes": ["df_transaction_data", "df_transaction_item", "df_items"]
- }
+ {{
+   "context": "<What the user wants>",
+   "pandas_query": "<VALID Pandas query string (or null)>",
+   "metropolib_query": "<Equivalent Metropolib query string (or null)>",
+   "reasoning": "<Detailed explanation: how user intent was translated into queries, what DataFrames and joins were used, assumptions made>",
+   "required_dataframes": ["<list of DataFrame names used>"]
+ }}
 ]
 
+---
 
+📌 Example Output:
+[
+ [],
+ {{
+   "context": "User wants to know their total sales.",
+   "pandas_query": "df_transaction_data[df_transaction_data['merchant_id'] == '{current_merchant_id}'].merge(df_transaction_item, on='order_id').merge(df_items, on='item_id').assign(total=lambda x: x['price'] * x['quantity'])['total'].sum()",
+   "metropolib_query": "SELECT SUM(price * quantity) FROM transaction_data JOIN transaction_item USING(order_id) JOIN items USING(item_id) WHERE merchant_id = '{current_merchant_id}'",
+   "reasoning": "We joined transactions with items and item prices, filtered by merchant_id, and calculated total sales by summing price × quantity.",
+   "required_dataframes": ["df_transaction_data", "df_transaction_item", "df_items"]
+ }}
+]
 """
+    elif kwargs.get("mode") == "4":
+        return "hi"
