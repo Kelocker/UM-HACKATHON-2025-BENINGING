@@ -34,7 +34,7 @@ def get_intent_output(user_input: str, current_merchant_id: str) -> dict:
     data_description = build_data_description(csv_headers)
     system_prompt = build_input_prompt(current_merchant_id, data_description,mode="2")
 
-    #%%
+
     # Update session — block if memory is full
     if not update_session("system", system_prompt) or not update_session("user", user_input):
         return {
