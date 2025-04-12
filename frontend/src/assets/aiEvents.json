@@ -79,5 +79,13 @@
         "If this works, should I try with other items too?",
         "What are people saying about the burger?"
       ]
+    },
+    "Yes, correct. MYR and it's the average per order.": {
+      "reply": "Perfect, thanks for confirming!\n\nI've now saved the Foodpanda sales summary (Apr 7 - Jun 30): Revenue RM 202,794.00, Successful Orders 530, Avg. Basket Size RM 381.19 (per order) to the database.",
+      "suggestions": [
+        "Thnaks!",
+        "Okay",
+        "There is a mistake in your mention"
+      ]
     }
   }
