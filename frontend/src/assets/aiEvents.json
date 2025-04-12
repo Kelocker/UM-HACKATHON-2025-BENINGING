@@ -15,13 +15,14 @@
         "Got rider shortage expected or not?"
       ]
     },
-    "hmm ya lo. that time all rider lambat sampai. maybe I just sell bestsellers saja la. easy sikit.": {
-      "reply": "Makes sense. Sticking to bestsellers means faster prep and fewer issues. Items like your chicken wings, cheesy fries, and milk tea have been consistent top-performers during past busy nights.",
-      "suggestions": [
-        "Can help me auto-tag those as recommended?",
-        "Can help me do quick promo for them?",
-        "Do other shops also do like this during events?"
-      ]
+    "hmm ya lo. that time all rider lambat sampai. maybe i just sell bestsellers saja la. easy sikit.": {
+    "reply": "Makes sense. Sticking to bestsellers means faster prep and fewer issues. Items like your chicken wings, cheesy fries, and milk tea have been consistent top-performers during past busy nights.",
+    "suggestions": [
+      "Can help me auto-tag those as recommended?",
+      "Can help me do quick promo for them?",
+      "Do other shops also do like this during events?"
+    ],
+    "imagePath": "/assets/982979732971971342839174.txt"
     },
     "can help me do quick promo for them?": {
       "reply": "A 10–15% discount usually works well — enough to attract attention without hurting your margins. You can add a banner too so more people notice.",
