@@ -36,6 +36,8 @@ import {
   IconArrowDown,
   IconArrowUp,
   IconCashBanknote,
+  IconBrandUpwork,
+  IconAffiliate,
 } from "@tabler/icons-react";
 
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
@@ -137,8 +139,12 @@ const HomePage = () => {
           <span className="font-bold text-sm">Welcome</span>
         </div>
         <div className="flex items-center gap-2">
-          <IconButton onClick={() => navigate("/aibot")} Icon={IconRobot} />
+          <IconButton
+            onClick={() => navigate("/collaboration")}
+            Icon={IconAffiliate}
+          />
           <IconButton onClick={() => navigate("/upload")} Icon={IconUpload} />
+          <IconButton onClick={() => navigate("/aibot")} Icon={IconRobot} />
         </div>
       </div>
 
