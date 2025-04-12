@@ -11,6 +11,11 @@
 - [Running Both Servers](#running-both-servers)
 - [Testing](#testing)
 
+## Presentation slides link
+```
+https://cloudmails-my.sharepoint.com/:p:/g/personal/tp069720_mail_apu_edu_my/Ec4MuHuqqoJElZ6hl-05pZkBIZ6LjtH1HQvq2p7gXyP39Q?e=a7iYDU
+```
+
 ## Clone project
 ```
 https://github.com/Kelocker/UM-HACKATHON-2025-BENINGING.git
