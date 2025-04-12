@@ -175,7 +175,8 @@ const HomePage = () => {
                 {data.map((entry, index) => (
                   <Cell
                     key={index}
-                    fill={colors[index % colors.length]}
+                    fill={entry.sales >= 0 ? "#22c55e" : "#ef4444"} // Use green for positive sales, red for negative
+                    // fill={colors[index % colors.length]} //for diffrent bar color
                     className="cursor-pointer"
                     onClick={() =>
                       navigate("/aibot", {
