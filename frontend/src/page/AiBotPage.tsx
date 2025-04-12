@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import IconButton from "../components/IconButton.tsx";
 import Marquee from "react-fast-marquee";
+// @ts-ignore
+import aiEventMap from "../assets/aiEvents.json";
 
 const AiBotPage = () => {
   const [messages, setMessages] = useState([
@@ -13,16 +15,32 @@ const AiBotPage = () => {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const location = useLocation();
-  const state = location.state ?? {};
-  console.log("location state now", state);
-
-  // Sample recommendations
-  const recommendations = [
+  const [recommendations, setRecommendations] = useState([
     "Everything is amazing",
     "Weather is nice",
     "I hope you're enjoying your day",
-  ];
+  ]);
+
+  const location = useLocation();
+  const state = location.state ?? {};
+  const navigate = useNavigate();
+
+  const typeText = (
+    text: string,
+    callback: (partial: string) => void,
+    delay = 25
+  ) => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        callback(text.slice(0, index + 1));
+        index++;
+      } else {
+        clearInterval(interval);
+        setIsTyping(false);
+      }
+    }, delay);
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -30,13 +48,43 @@ const AiBotPage = () => {
     const userMessage = { message: input, direction: "outgoing" };
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
+    const normalized = input.trim().toLowerCase();
     setInput("");
+
+    const event = aiEventMap[normalized] as {
+      reply: string;
+      suggestions: string[];
+    } | undefined;
+
+    if (event) {
+      setMessages((prev) => [...prev, { message: "...", direction: "typing" }]);
+
+      setTimeout(() => {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { message: "", direction: "incoming" };
+          return updated;
+        });
+
+        typeText(event.reply, (partial) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              message: partial,
+              direction: "incoming",
+            };
+            return updated;
+          });
+        });
+      }, Math.min(1000 + event.reply.length * 10, 3000));
+
+      setRecommendations(event.suggestions);
+      return;
+    }
 
     await processMessageToChatGPT(userMessage.message);
   };
 
-  const abc = process.env.REACT_APP_OPENAI_API_KEY;
-  console.log("API Key:", abc);
   const processMessageToChatGPT = async (text: string) => {
     const requestBody = {
       model: "gpt-3.5-turbo",
@@ -62,24 +110,49 @@ const AiBotPage = () => {
 
       const data = await response.json();
       if (data.choices && data.choices.length > 0) {
-        const botMessage = {
-          message: data.choices[0].message.content,
-          direction: "incoming",
-        };
-        setMessages((prev) => [...prev, botMessage]);
+        const fullReply = data.choices[0].message.content;
+
+        setMessages((prev) => [...prev, { message: "...", direction: "typing" }]);
+
+        setTimeout(() => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              message: "",
+              direction: "incoming",
+            };
+            return updated;
+          });
+
+          typeText(fullReply, (partial) => {
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                message: partial,
+                direction: "incoming",
+              };
+              return updated;
+            });
+          });
+        }, Math.min(1000 + fullReply.length * 10, 4000)); // Max 4s delay
       }
     } catch (error) {
       console.error("Error processing message:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          message: "Sorry, there was an error contacting the AI service.",
+          direction: "incoming",
+        },
+      ]);
+      setIsTyping(false);
     }
-
-    setIsTyping(false);
   };
 
   const handleRecommendationClick = (rec: string) => {
     setInput(rec);
     setTimeout(() => handleSend(), 0);
   };
-  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -94,6 +167,7 @@ const AiBotPage = () => {
           </div>
         ) : null}
       </div>
+
       {state.title ? (
         <Marquee gradient={false} speed={80} className="bg-lime-400 py-2">
           <div className="text-black font-bold text-sm tracking-wide">
@@ -101,31 +175,38 @@ const AiBotPage = () => {
           </div>
         </Marquee>
       ) : null}
-      {/* Chat Messages */}
-      <div className="flex-grow p-4 overflow-auto flex flex-col gap-3">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`max-w-[60%] p-3 rounded-lg text-sm leading-relaxed ${
-              msg.direction === "incoming"
-                ? "bg-gray-100 text-black self-start"
-                : "bg-black text-white self-end"
-            }`}
-          >
-            {msg.message}
-          </div>
-        ))}
 
-        {isTyping && (
-          <div className="bg-gray-100 text-black p-3 rounded-lg max-w-[60%] self-start typing flex gap-1">
-            <span className="dot">.</span>
-            <span className="dot">.</span>
-            <span className="dot">.</span>
-          </div>
-        )}
+      <div className="flex-grow p-4 overflow-auto flex flex-col gap-3">
+        {messages.map((msg, index) => {
+          if (msg.direction === "typing") {
+            return (
+              <div
+                key={index}
+                className="bg-gray-100 text-black p-3 rounded-lg max-w-[60%] self-start typing flex gap-1"
+              >
+                <span className="dot">.</span>
+                <span className="dot">.</span>
+                <span className="dot">.</span>
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={index}
+              className={`max-w-[60%] p-3 rounded-lg text-sm leading-relaxed ${
+                msg.direction === "incoming"
+                  ? "bg-gray-100 text-black self-start"
+                  : "bg-black text-white self-end"
+              }`}
+            >
+              {msg.message}
+            </div>
+          );
+        })}
       </div>
 
-      <div className="px-4 pb-2 flex gap-2">
+      <div className="px-4 pb-2 flex gap-2 flex-wrap">
         {recommendations.map((item, idx) => (
           <div
             key={idx}
