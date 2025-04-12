@@ -28,7 +28,7 @@ const ImagesBlog = ({ images, title, Icon, iconColor }) => {
 
   return (
     <div className="p-4">
-      <div className="text-start flex font-semibold mb-2">
+      <div className="text-start flex gap-1 font-semibold mb-2">
         <Icon className={iconColor} />
 
         {title}
