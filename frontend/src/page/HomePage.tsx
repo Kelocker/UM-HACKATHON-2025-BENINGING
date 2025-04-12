@@ -28,14 +28,14 @@ import {
   Cell,
 } from "recharts";
 import {
-  IconLabelImportantFilled,
   IconRobot,
-  IconFiretruck,
   IconUpload,
   IconMoneybag,
-  IconShoppingBag,
   IconBuildingStore,
   IconCalendarBolt,
+  IconArrowDown,
+  IconArrowUp,
+  IconCashBanknote,
 } from "@tabler/icons-react";
 
 // import LocalNotificationButton from "../components/LocalNotificationButton.tsx";
@@ -127,6 +127,9 @@ const HomePage = () => {
     "#87CEEB",
   ]; // Pride colors + sky blue
 
+  const amount = 25859;
+  const change = 17.25;
+
   return (
     <div className="bg-white min-h-screen">
       <div className="flex items-center justify-between px-4 py-2 border-b border-gray-300">
@@ -150,10 +153,36 @@ const HomePage = () => {
         <LocalNotificationButton />
         
       </div> */}
-      <div className="w-[100%] flex justify-center">
-        <div className="p-4 w-[100%] max-w-3xl">
-          <div className="text-center font-semibold mb-2">
-            Sales Record from the Last 7 Days
+      <div className="w-[100%] mt-4 flex justify-center p-4">
+        <div className="p-2  pb-4 w-[100%] max-w-3xl border-2 shadow-md rounded-lg">
+          <div className="md:text-center text-start flex gap-1 font-semibold mb-4">
+            <IconCashBanknote className="text-yellow-600" /> Sales Record from
+            the Last 7 Days
+          </div>
+
+          <div className="flex px-4 gap-2 mb-4">
+            <div className="text-3xl text-end font-bold text-gray-900">
+              ${amount.toLocaleString()}
+            </div>
+            <div className="text-sm text-gray-500 flex justify-end items-center mt-1">
+              {change >= 0 ? (
+                <>
+                  <IconArrowUp className="w-4 h-4 text-green-500" />
+                  <span className="text-green-500 font-semibold">
+                    {change}%
+                  </span>
+                  <span className="ml-1">vs. last month</span>
+                </>
+              ) : (
+                <>
+                  <IconArrowDown className="w-4 h-4 text-red-500" />
+                  <span className="text-red-500 font-semibold">
+                    {Math.abs(change)}%
+                  </span>
+                  <span className="ml-1">vs. last month</span>
+                </>
+              )}
+            </div>
           </div>
 
           <ResponsiveContainer width="100%" height={300}>
@@ -176,7 +205,7 @@ const HomePage = () => {
                   <Cell
                     key={index}
                     fill={entry.sales >= 0 ? "#22c55e" : "#ef4444"} // Use green for positive sales, red for negative
-                    // fill={colors[index % colors.length]} //for diffrent bar color
+                    // fill={colors[index % colors.length]} // each day not same color
                     className="cursor-pointer"
                     onClick={() =>
                       navigate("/aibot", {
