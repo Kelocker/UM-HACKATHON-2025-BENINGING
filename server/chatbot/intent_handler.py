@@ -11,9 +11,20 @@ from .prompt_utils import build_data_description, build_input_prompt
 load_dotenv()
 client = OpenAI(api_key=os.getenv("API_KEY"))
 
+def get_data_path():
+    """Get the correct data path for both script and notebook execution"""
+    try:
+        # Works in .py files
+        base_path = Path(__file__).parent.parent
+    except NameError:
+        # Works in Jupyter notebooks
+        base_path = Path(os.getcwd()).parent
+    return base_path / 'data'
+
 def get_intent_output(user_input: str, current_merchant_id: str) -> dict:
-    # Load headers from CSV
-    folder_path = Path('data')
+    # Get the correct data path
+    folder_path = get_data_path()
+
     csv_headers = {}
     for csv_file in folder_path.glob('*.csv'):
         table_name = csv_file.stem
@@ -27,8 +38,6 @@ def get_intent_output(user_input: str, current_merchant_id: str) -> dict:
     # Start session memory if it's empty
     if not get_session_history():
         init_session(current_merchant_id)
-
-
 
     # Build structured prompt from utils
     data_description = build_data_description(csv_headers)
