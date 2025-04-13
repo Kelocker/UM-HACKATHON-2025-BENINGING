@@ -1,0 +1,91 @@
+{
+    "concert crowd incoming?": {
+      "reply": "Hi! There’s a major concert happening next Friday near Stadium Bukit Jalil. You may see a spike in late-night delivery orders due to the crowd. Would you like help preparing for the surge?",
+      "suggestions": [
+        "Will there be more foot traffic too?",
+        "What’s the best way to prepare for late-night orders?",
+        "Can you show me what usually sells during concerts?"
+      ]
+    },
+    "wah serious ah? if like that confirm jam la. last time my orders all delay die liao.": {
+      "reply": "Understood — sounds familiar. If it’s anything like last time, there might be delays again. It could help to prep a limited menu and add extra delivery buffer time so riders don’t get overwhelmed.",
+      "suggestions": [
+        "Should I close my store earlier instead?",
+        "How to set up limited menu ah?",
+        "Got rider shortage expected or not?"
+      ]
+    },
+    "hmm ya lo. that time all rider lambat sampai. maybe i just sell bestsellers saja la. easy sikit.": {
+    "reply": "Makes sense. Sticking to bestsellers means faster prep and fewer issues. Items like your chicken wings, cheesy fries, and milk tea have been consistent top-performers during past busy nights.",
+    "suggestions": [
+      "Can help me auto-tag those as recommended?",
+      "Can help me do quick promo for them?",
+      "Do other shops also do like this during events?"
+    ],
+    "imagePath": "/assets/982979732971971342839174.txt"
+    },
+    "can help me do quick promo for them?": {
+      "reply": "A 10–15% discount usually works well — enough to attract attention without hurting your margins. You can add a banner too so more people notice.",
+      "suggestions": [
+        "Got template for promo banner or not?",
+        "Should I schedule the promo now or wait a bit?",
+        "Can you alert me again next week?"
+      ]
+    },
+    "tolong setkan peringatan ya. saya sekarang memang sibuk sangat, takut nanti terlupa.": {
+      "reply": "Baik, saya akan hantar peringatan tiga hari sebelum konsert supaya anda sempat bersedia. Kalau perlukan bantuan untuk persiapan, jangan segan untuk beritahu ya!",
+      "suggestions": [
+        "Ingatkan staf juga boleh?",
+        "Tolong semak stok untuk item popular",
+        "Ada acara lain akan datang dekat kawasan saya?"
+      ]
+    },
+    "burger sales dropped!": {
+      "reply": "Hey! Just so you know, your Signature Burger sales dropped by 20% last week. That’s quite a change from the usual trend. Want to take a look at what might’ve caused it?",
+      "suggestions": [
+        "Did other items go up instead?",
+        "Was it out of stock?",
+        "Can you show me which days it dropped most?"
+      ]
+    },
+    "can you show me which days it dropped most?": {
+      "reply": "It dropped the most between Tuesday and Thursday — about 35% lower than the week before. The weekend was still okay. Want to check if there were any changes to your menu or store settings that week?",
+      "suggestions": [
+        "Was anything out of stock?",
+        "Did I have fewer views on the menu?",
+        "Did another item perform better that week?"
+      ]
+    },
+    "i don’t think anything changed. can you show me if another item went up?": {
+      "reply": "Yes — your Grilled Chicken Wrap and Rice Bowl had more orders than usual last week. Seems like customers were shifting to lighter options. Want to try promoting the burger to bring attention back?",
+      "suggestions": [
+        "Yeah, suggest a simple promo",
+        "Can we bundle it with something?",
+        "Should I tweak the burger a bit?"
+      ]
+    },
+    "yeah, suggest a simple promo. nothing too fancy.": {
+      "reply": "A 10% discount or bundling it with fries usually works well without cutting too much into profit. I can help you set it up for the weekend if you like.",
+      "suggestions": [
+        "Set it for this weekend",
+        "What banner can I use?",
+        "How long should I run it for?"
+      ]
+    },
+    "set it for this weekend. also, remind me on friday?": {
+      "reply": "Done — promo will start this weekend, and I’ll remind you on Friday morning so you’re all set. Let’s boost those burger numbers! 👍",
+      "suggestions": [
+        "Can you track the sales after the promo?",
+        "If this works, should I try with other items too?",
+        "What are people saying about the burger?"
+      ]
+    },
+    "Yes, correct. MYR and it's the average per order.": {
+      "reply": "Perfect, thanks for confirming!\n\nI've now saved the Foodpanda sales summary (Apr 7 - Jun 30): Revenue RM 202,794.00, Successful Orders 530, Avg. Basket Size RM 381.19 (per order) to the database.",
+      "suggestions": [
+        "Thnaks!",
+        "Okay",
+        "There is a mistake in your mention"
+      ]
+    }
+  }
