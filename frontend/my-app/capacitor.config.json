@@ -1,0 +1,10 @@
+{
+  "appId": "com.umhackathon.beninging",
+  "appName": "beninging",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

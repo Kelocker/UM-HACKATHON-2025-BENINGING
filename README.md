@@ -3,6 +3,7 @@
 
 ## Table of Contents
 
+- [Clone Project](#clone-project)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
   - [1. Backend Setup (Flask)](#1-backend-setup-flask)
@@ -10,11 +11,21 @@
 - [Running Both Servers](#running-both-servers)
 - [Testing](#testing)
 
+## Presentation slides link
+```
+https://cloudmails-my.sharepoint.com/:p:/g/personal/tp069720_mail_apu_edu_my/Ec4MuHuqqoJElZ6hl-05pZkBIZ6LjtH1HQvq2p7gXyP39Q?e=a7iYDU
+```
+
+## Clone project
+```
+https://github.com/Kelocker/UM-HACKATHON-2025-BENINGING.git
+```
+
 ## Project Structure
 After setting up:
 ```
 UM-HACKATHON-2025-BENINGING/
-├── Server/         # Flask backend
+├── server/         # Flask backend
 │   ├── app.py
 │   ├── venv
 │   └── requirements.txt
@@ -29,7 +40,7 @@ UM-HACKATHON-2025-BENINGING/
 ## Setup Instructions
 ### 1. Backend Setup (Flask)
 ```
-cd Server
+cd server
 ```
 
 Create a virtual environment:
